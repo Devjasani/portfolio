@@ -62,7 +62,7 @@ export function About() {
               {/* Avatar container */}
               <div className="absolute inset-2 md:inset-8 rounded-full overflow-hidden glass glow-border">
                 <img
-                  src="/dev-hero.jpg"
+                  src="/dev-hero.webp"
                   alt="Dev Jasani"
                   loading="lazy"
                   decoding="async"
