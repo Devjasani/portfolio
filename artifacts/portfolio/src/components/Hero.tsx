@@ -15,10 +15,10 @@ class CanvasErrorBoundary extends Component<{ children: ReactNode; fallback: Rea
 
 // --- Typing animation hook ---
 const roles = [
-  "Principal Full-Stack Engineer",
-  "System Architect",
-  "Tech Lead",
+  "Passionate Full-Stack Developer",
+  "Creative Problem Solver",
   "AI Integration Specialist",
+  "Building Things That Matter",
 ];
 
 function useTypingAnimation(words: string[], speed = 80, pause = 1800) {

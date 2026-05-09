@@ -97,7 +97,7 @@ export function About() {
           >
             <div className="space-y-4">
               <p className="text-xl md:text-2xl font-heading font-semibold leading-relaxed text-foreground/90">
-                Hi, I'm <span className="gradient-text font-bold">Dev Jasani</span>. A Principal Full-Stack Engineer who architects and builds futuristic, high-performance digital products.
+                Hi, I'm <span className="gradient-text font-bold">Dev Jasani</span>. A Passionate Full-Stack Developer who designs and builds futuristic, high-performance digital products.
               </p>
               <p className="text-muted-foreground leading-relaxed text-base hidden md:block">
                 With 5+ years of experience shipping production apps, I specialise in combining cutting-edge frontend engineering with intelligent AI systems. I obsess over scalability, performance, and delivering robust architectures that drive actual business value.
