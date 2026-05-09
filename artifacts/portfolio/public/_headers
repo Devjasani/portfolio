@@ -11,7 +11,7 @@
 
 # ── Static images and media ────────────────────────────────────────
 # Cache for 30 days — these rarely change
-/dev-hero.jpg
+/dev-hero.webp
   Cache-Control: public, max-age=2592000, stale-while-revalidate=86400
 /aura-audeo-hero.webp
   Cache-Control: public, max-age=2592000, stale-while-revalidate=86400
