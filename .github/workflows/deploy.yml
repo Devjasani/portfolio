@@ -63,7 +63,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: portfolio-dist
-          path: artifacts/portfolio/dist/
+          path: artifacts/portfolio/dist/public/
           if-no-files-found: error
           retention-days: 1
 

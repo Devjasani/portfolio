@@ -1,0 +1,45 @@
+# ═══════════════════════════════════════════════════════════════════
+#  Cloudflare Pages — HTTP Headers Configuration
+#  File: public/_headers
+#  Docs: https://developers.cloudflare.com/pages/configuration/headers/
+# ═══════════════════════════════════════════════════════════════════
+
+# ── Vite build output: JS/CSS with content hash in filename ────────
+# Cache FOREVER (1 year) — Vite guarantees unique filename on change
+/assets/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# ── Static images and media ────────────────────────────────────────
+# Cache for 30 days — these rarely change
+/dev-hero.jpg
+  Cache-Control: public, max-age=2592000, stale-while-revalidate=86400
+/aura-audeo-hero.webp
+  Cache-Control: public, max-age=2592000, stale-while-revalidate=86400
+/aura-audeo-mockup.webp
+  Cache-Control: public, max-age=2592000, stale-while-revalidate=86400
+/favicon.webp
+  Cache-Control: public, max-age=2592000
+/logo.webp
+  Cache-Control: public, max-age=2592000
+
+# ── Lottie animations ──────────────────────────────────────────────
+/gaming-community.lottie
+  Cache-Control: public, max-age=2592000, immutable
+/hello-worker.lottie
+  Cache-Control: public, max-age=2592000, immutable
+
+# ── Web App Manifest ───────────────────────────────────────────────
+/site.webmanifest
+  Cache-Control: public, max-age=86400
+  Content-Type: application/manifest+json
+
+# ── Main HTML — NEVER cache, always fresh ─────────────────────────
+# index.html must revalidate every time so new deploys are instant
+/*
+  Cache-Control: public, max-age=0, must-revalidate
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: DENY
+  X-XSS-Protection: 1; mode=block
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), browsing-topics=()
+  Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
