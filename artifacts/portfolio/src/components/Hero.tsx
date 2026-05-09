@@ -152,15 +152,36 @@ function CSSFallbackBackground() {
 
 export function Hero() {
   const typedText = useTypingAnimation(roles);
+  const containerRef = useRef<HTMLElement>(null);
   const [load3D, setLoad3D] = useState(false);
 
   useEffect(() => {
-    const timer = setTimeout(() => setLoad3D(true), 1500);
+    // Only load 3D after initial render to prioritize FCP
+    const timer = setTimeout(() => {
+      // Check if we support IntersectionObserver
+      if ('IntersectionObserver' in window && containerRef.current) {
+        const observer = new IntersectionObserver(
+          (entries) => {
+            if (entries[0].isIntersecting) {
+              setLoad3D(true);
+              observer.disconnect();
+            }
+          },
+          { rootMargin: "200px" } // Load slightly before it comes into view
+        );
+        observer.observe(containerRef.current);
+        return () => observer.disconnect();
+      } else {
+        // Fallback
+        setLoad3D(true);
+      }
+    }, 500); // 500ms delay to ensure critical path rendering is done
+
     return () => clearTimeout(timer);
   }, []);
 
   return (
-    <section className="relative w-full h-screen flex flex-col items-center justify-center overflow-hidden">
+    <section ref={containerRef} className="relative w-full h-screen flex flex-col items-center justify-center overflow-hidden">
       {/* Base gradient */}
       <div className="absolute inset-0 z-0" style={{
         background: 'linear-gradient(135deg, #000000 0%, #100500 40%, #080400 70%, #000000 100%)'

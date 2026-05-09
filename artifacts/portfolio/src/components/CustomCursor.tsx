@@ -3,8 +3,15 @@ import { useEffect, useState } from "react";
 export function CustomCursor() {
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [isHovering, setIsHovering] = useState(false);
+  const [isTouchDevice, setIsTouchDevice] = useState(false);
 
   useEffect(() => {
+    // Disable custom cursor on mobile/touch devices
+    if (window.matchMedia("(pointer: coarse)").matches || 'ontouchstart' in window) {
+      setIsTouchDevice(true);
+      return;
+    }
+
     const updatePosition = (e: MouseEvent) => {
       setPosition({ x: e.clientX, y: e.clientY });
       const target = e.target as HTMLElement;
@@ -18,6 +25,9 @@ export function CustomCursor() {
     window.addEventListener("mousemove", updatePosition);
     return () => window.removeEventListener("mousemove", updatePosition);
   }, []);
+
+  // Do not render anything on mobile
+  if (isTouchDevice) return null;
 
   return (
     <>

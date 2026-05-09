@@ -33,6 +33,8 @@ export function Nav() {
             <img
               src="/logo.webp"
               alt="Dev Jasani Logo"
+              width="96"
+              height="60"
               className="h-10 md:h-14 w-auto transition-transform group-hover:scale-105 duration-300"
             />
           </Link>

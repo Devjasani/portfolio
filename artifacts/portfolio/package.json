@@ -83,6 +83,8 @@
   "dependencies": {
     "@chenglou/pretext": "^0.0.6",
     "@dotlottie/react-player": "^1.6.19",
+    "@fontsource/inter": "^5.2.8",
+    "@fontsource/space-grotesk": "^5.2.10",
     "@lottiefiles/dotlottie-web": "^0.72.0",
     "react-use-measure": "^2.1.7"
   }
