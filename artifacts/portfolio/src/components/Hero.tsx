@@ -1,5 +1,5 @@
 import { useRef, useEffect, useState, Component, ReactNode, lazy, Suspense } from 'react';
-import { m } from 'framer-motion';
+
 import { Link } from 'wouter';
 
 const ThreeScene = lazy(() => import('./ThreeScene'));
@@ -156,28 +156,23 @@ export function Hero() {
   const [load3D, setLoad3D] = useState(false);
 
   useEffect(() => {
-    // Only load 3D after initial render to prioritize FCP
-    const timer = setTimeout(() => {
-      // Check if we support IntersectionObserver
-      if ('IntersectionObserver' in window && containerRef.current) {
-        const observer = new IntersectionObserver(
-          (entries) => {
-            if (entries[0].isIntersecting) {
-              setLoad3D(true);
-              observer.disconnect();
-            }
-          },
-          { rootMargin: "200px" } // Load slightly before it comes into view
-        );
-        observer.observe(containerRef.current);
-        return () => observer.disconnect();
-      } else {
-        // Fallback
-        setLoad3D(true);
-      }
-    }, 500); // 500ms delay to ensure critical path rendering is done
+    // Import on Interaction to eliminate unused JS penalty for Three.js
+    const handleInteraction = () => {
+      setLoad3D(true);
+      ['mousemove', 'touchstart', 'scroll', 'keydown', 'click'].forEach((event) => {
+        window.removeEventListener(event, handleInteraction);
+      });
+    };
 
-    return () => clearTimeout(timer);
+    ['mousemove', 'touchstart', 'scroll', 'keydown', 'click'].forEach((event) => {
+      window.addEventListener(event, handleInteraction, { once: true, passive: true });
+    });
+
+    return () => {
+      ['mousemove', 'touchstart', 'scroll', 'keydown', 'click'].forEach((event) => {
+        window.removeEventListener(event, handleInteraction);
+      });
+    };
   }, []);
 
   return (
@@ -213,19 +208,12 @@ export function Hero() {
 
       {/* Content */}
       <div className="relative z-10 container mx-auto px-6 text-center mt-20 pointer-events-none">
-        <m.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: 'easeOut' }}
-        >
-          <m.span
-            initial={{ opacity: 0, letterSpacing: '0.5em' }}
-            animate={{ opacity: 1, letterSpacing: '0.3em' }}
-            transition={{ duration: 1, delay: 0.2 }}
-            className="text-xs uppercase tracking-[0.3em] text-primary mb-6 block font-mono"
+        <div className="animate-in fade-in slide-in-from-bottom-8 duration-700 fill-mode-both">
+          <span
+            className="text-xs uppercase tracking-[0.3em] text-primary mb-6 block font-mono animate-in fade-in duration-1000 fill-mode-both delay-[200ms]"
           >
             Available for freelance work
-          </m.span>
+          </span>
 
           <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-heading font-bold mb-4 tracking-tight drop-shadow-2xl leading-[1.1]">
             Building <span className="gradient-text">Exceptional</span>
@@ -242,16 +230,14 @@ export function Hero() {
           </div>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-6 pointer-events-auto">
-            <m.a
+            <a
               href="#work"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.98 }}
-              className="px-6 py-3 sm:px-8 sm:py-4 rounded-full bg-primary text-primary-foreground font-semibold hover:shadow-[0_0_30px_rgba(255,140,0,0.5)] transition-shadow duration-300"
+              className="px-6 py-3 sm:px-8 sm:py-4 rounded-full bg-primary text-primary-foreground font-semibold hover:shadow-[0_0_30px_rgba(255,140,0,0.5)] transition-all duration-300 hover:scale-105 active:scale-95"
               data-testid="button-view-work"
             >
               View Work
-            </m.a>
-            <m.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.98 }}>
+            </a>
+            <div className="hover:scale-105 active:scale-95 transition-transform duration-300">
               <Link
                 href="/contact"
                 className="px-6 py-3 sm:px-8 sm:py-4 rounded-full glass border border-primary/30 text-foreground font-semibold hover:bg-primary/10 transition-colors duration-300 glow-border block"
@@ -259,15 +245,12 @@ export function Hero() {
               >
                 Start a Project
               </Link>
-            </m.div>
+            </div>
           </div>
 
           {/* Social proof */}
-          <m.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 1.2 }}
-            className="mt-10 flex items-center justify-center gap-3 pointer-events-none"
+          <div
+            className="mt-10 flex items-center justify-center gap-3 pointer-events-none animate-in fade-in duration-1000 delay-[1200ms] fill-mode-both"
           >
             <div className="flex -space-x-2">
               {["JD", "AM", "PR", "KS"].map((initials, i) => (
@@ -283,20 +266,17 @@ export function Hero() {
             <span className="text-xs text-muted-foreground font-mono">
               Trusted by <span className="text-[#ffcc00] font-bold">50+</span> clients worldwide
             </span>
-          </m.div>
-        </m.div>
+          </div>
+        </div>
       </div>
 
-      {/* Scroll indicator */}
-      <m.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.5, duration: 1 }}
-        className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center z-10 pointer-events-none"
+      {/* Scroll indicator - Hidden on mobile to prevent overlap on short screens */}
+      <div
+        className="absolute bottom-10 left-1/2 -translate-x-1/2 hidden sm:flex flex-col items-center z-10 pointer-events-none animate-in fade-in duration-1000 delay-[1500ms] fill-mode-both"
       >
         <span className="text-xs text-muted-foreground mb-2 uppercase tracking-widest font-mono">Scroll</span>
         <div className="w-[1px] h-12 bg-gradient-to-b from-primary to-transparent" />
-      </m.div>
+      </div>
     </section>
   );
 }

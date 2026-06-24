@@ -1,4 +1,4 @@
-import { m } from "framer-motion";
+
 import { Download, MapPin, Briefcase, Coffee, Star } from "lucide-react";
 
 const stats = [
@@ -25,11 +25,8 @@ export function About() {
 
       <div className="container mx-auto px-6 relative z-10">
         {/* Section Label */}
-        <m.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="text-center mb-20"
+        <div
+          className="text-center mb-20 animate-in fade-in slide-in-from-bottom-4 duration-700 fill-mode-both"
         >
           <span className="text-xs font-mono tracking-[0.5em] text-[#ff4500] uppercase mb-4 block font-bold">
             // IDENTITY_MODULE
@@ -37,16 +34,12 @@ export function About() {
           <h2 className="text-4xl md:text-5xl font-heading font-bold tracking-tighter">
             About <span className="gradient-text">Me</span>
           </h2>
-        </m.div>
+        </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center max-w-6xl mx-auto">
           {/* Left — Avatar + Decorative */}
-          <m.div
-            initial={{ opacity: 0, x: -50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.7 }}
-            className="relative flex justify-center"
+          <div
+            className="relative flex justify-center animate-in fade-in slide-in-from-left-8 duration-700 fill-mode-both"
           >
             {/* Outer ring decoration */}
             <div className="relative w-64 h-64 md:w-72 md:h-72 lg:w-80 lg:h-80">
@@ -64,8 +57,8 @@ export function About() {
                 <img
                   src="/dev-hero.webp"
                   alt="Dev Jasani"
-                  loading="lazy"
-                  decoding="async"
+                  loading="eager"
+                  fetchPriority="high"
                   className="w-full h-full object-cover"
                 />
               </div>
@@ -77,23 +70,17 @@ export function About() {
             </div>
 
             {/* Floating location chip */}
-            <m.div
-              animate={{ y: [0, -8, 0] }}
-              transition={{ repeat: Infinity, duration: 3, ease: "easeInOut" }}
-              className="absolute top-4 left-0 glass glow-border px-3 py-1.5 rounded-full flex items-center gap-2"
+            <div
+              className="absolute top-4 left-0 glass glow-border px-3 py-1.5 rounded-full flex items-center gap-2 animate-[bounce_3s_infinite]"
             >
               <MapPin size={12} className="text-[#ff4500]" />
               <span className="text-xs font-mono text-foreground/70">India, Remote Worldwide</span>
-            </m.div>
-          </m.div>
+            </div>
+          </div>
 
           {/* Right — Bio + Tags */}
-          <m.div
-            initial={{ opacity: 0, x: 50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.7, delay: 0.15 }}
-            className="space-y-8"
+          <div
+            className="space-y-8 animate-in fade-in slide-in-from-right-8 duration-700 delay-[150ms] fill-mode-both"
           >
             <div className="space-y-4">
               <p className="text-xl md:text-2xl font-heading font-semibold leading-relaxed text-foreground/90">
@@ -128,32 +115,24 @@ export function About() {
             </div>
 
 
-          </m.div>
+          </div>
         </div>
 
         {/* Stats bar */}
-        <m.div
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.3 }}
-          className="mt-20 grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto"
+        <div
+          className="mt-20 grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto animate-in fade-in slide-in-from-bottom-8 duration-700 delay-[300ms] fill-mode-both"
         >
           {stats.map((stat, i) => (
-            <m.div
+            <div
               key={stat.label}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.4 + i * 0.1 }}
-              className="glass glow-border rounded-2xl p-6 text-center group hover:bg-white/5 transition-colors"
+              className="glass glow-border rounded-2xl p-6 text-center group hover:bg-white/5 transition-colors animate-in fade-in slide-in-from-bottom-4 duration-700 fill-mode-both"
             >
               <div className="flex justify-center mb-2">{stat.icon}</div>
               <div className="text-3xl font-heading font-bold gradient-text mb-1">{stat.value}</div>
               <div className="text-xs text-muted-foreground font-mono tracking-wide">{stat.label}</div>
-            </m.div>
+            </div>
           ))}
-        </m.div>
+        </div>
       </div>
     </section>
   );

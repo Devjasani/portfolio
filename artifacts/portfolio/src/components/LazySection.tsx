@@ -6,7 +6,7 @@ interface LazySectionProps {
   rootMargin?: string;
 }
 
-export function LazySection({ children, height = "100vh", rootMargin = "600px" }: LazySectionProps) {
+export function LazySection({ children, height = "100vh", rootMargin = "100px" }: LazySectionProps) {
   const [isVisible, setIsVisible] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 

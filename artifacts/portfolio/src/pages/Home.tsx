@@ -1,5 +1,5 @@
 import { lazy, Suspense } from "react";
-import { m } from "framer-motion";
+
 import { Hero } from "@/components/Hero";
 import { About } from "@/components/sections/About";
 import { LazySection } from "@/components/LazySection";
@@ -21,12 +21,8 @@ const SectionFallback = () => (
 
 export default function Home() {
   return (
-    <m.main
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      transition={{ duration: 0.5 }}
-      className="min-h-screen bg-background w-full overflow-hidden"
+    <main
+      className="min-h-screen bg-background w-full overflow-hidden animate-in fade-in duration-500"
     >
       {/* Above-fold — always eager loaded, no Suspense needed */}
       <Hero />
@@ -73,7 +69,7 @@ export default function Home() {
           <Footer />
         </Suspense>
       </LazySection>
-    </m.main>
+    </main>
   );
 }
 

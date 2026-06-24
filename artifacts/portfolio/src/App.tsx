@@ -1,13 +1,13 @@
 import { Switch, Route, Router as WouterRouter, useLocation } from "wouter";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
-import { TooltipProvider } from "@/components/ui/tooltip";
+
 import NotFound from "@/pages/not-found";
 import { useEffect, lazy, Suspense } from "react";
 import { useLenis } from "@/hooks/useLenis";
-import { LazyMotion, domAnimation } from "framer-motion";
+import { LazyMotion } from "framer-motion";
 
-const Home = lazy(() => import("@/pages/Home"));
+import Home from "@/pages/Home";
 const Contact = lazy(() => import("@/pages/Contact"));
 import { CustomCursor } from "@/components/CustomCursor";
 import { Nav } from "@/components/Nav";
@@ -47,8 +47,8 @@ function App() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <TooltipProvider>
-        <LazyMotion features={domAnimation}>
+
+        <LazyMotion features={() => import('./features').then(res => res.default)}>
           <WouterRouter base={import.meta.env.BASE_URL.replace(/\/$/, "")}>
             <CustomCursor />
             <Nav />
@@ -56,7 +56,7 @@ function App() {
           </WouterRouter>
         </LazyMotion>
         <Toaster />
-      </TooltipProvider>
+
     </QueryClientProvider>
   );
 }

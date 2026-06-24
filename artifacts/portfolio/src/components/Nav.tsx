@@ -1,6 +1,6 @@
 import { Link } from "wouter";
 import { useState, useEffect } from "react";
-import { m } from "framer-motion";
+
 
 export function Nav() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -18,11 +18,8 @@ export function Nav() {
       }`}
     >
       <div className="container mx-auto px-6">
-        <m.div
-          initial={{ opacity: 0, y: -10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4, ease: "easeOut" }}
-          className={`flex items-center justify-between px-6 py-3.5 rounded-full transition-all duration-400 ${
+        <div
+          className={`flex items-center justify-between px-6 py-3.5 rounded-full transition-all duration-400 animate-in fade-in slide-in-from-top-2 duration-500 ${
             isScrolled
               ? "glass shadow-[0_4px_30px_rgba(0,0,0,0.4)]"
               : "bg-transparent"
@@ -57,7 +54,7 @@ export function Nav() {
               Let's Build
             </Link>
           </nav>
-        </m.div>
+        </div>
       </div>
     </header>
   );
